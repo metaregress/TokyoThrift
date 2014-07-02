@@ -10,6 +10,8 @@
 
 #include "helperClasses/Game.h"
 #include "states/Title.h"
+#include "Entities/PlayerEntity.h"
+#include "Entities/GameInfo.h"
 
 class TokyoThriftGame : public Game{
 public:

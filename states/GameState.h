@@ -12,9 +12,11 @@
 
 #include <vector>
 #include <iomanip>
+#include <iostream>
 #include <locale>
 #include <sstream>
 #include <string>
+
 
 using namespace std;
 
@@ -24,13 +26,9 @@ public:
 	virtual ~GameState();
 
 	virtual void handleEvents() = 0;
-	virtual void logic() = 0;
-	virtual void render(SDL_Surface* destination) = 0; //may need to pass this the screen...
+	virtual void render() = 0;
 
 	virtual GameState* getNextState() = 0;
-
-	bool checkCollision( SDL_Rect A, SDL_Rect B );
-	void clearScreen(SDL_Surface *destination);
 
 protected:
 	//Game states
@@ -40,8 +38,6 @@ protected:
 	};
 
 	int nextState;
-
-	SDL_Event event;
 
 	std::string numberToString( int number);
 	int stringToNumber( std::string theString );

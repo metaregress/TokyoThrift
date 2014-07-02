@@ -8,20 +8,15 @@
 #ifndef TITLE_H_
 #define TITLE_H_
 
-#include "GameState.h"
-#include "SDL/SDL_mixer.h"
-#include "../helperClasses/TTFText.h"
-#include "../helperClasses/Button.h"
-#include "../helperClasses/SelectionList.h"
+#include "GenericNode.h"
+#include "Home.h"
 
-class Title : public GameState {
+class Title : public GenericNode {
 public:
-	Title();
+	Title(PlayerEntity p, GameInfo g);
 	virtual ~Title();
 
 	void handleEvents();
-	void logic();
-	void render(SDL_Surface* destination);
 
 	GameState* getNextState();
 
@@ -32,13 +27,6 @@ protected:
 		STATE_EXIT,
 		STATE_GAME
 	};
-
-	TTFText titleText;
-	Button playGame;
-	Button quitButton;
-	SelectionList titleOptions;
-
-	Mix_Chunk *startSound;
 };
 
 #endif /* TITLE_H_ */

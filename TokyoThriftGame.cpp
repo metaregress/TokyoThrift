@@ -8,7 +8,9 @@
 #include "TokyoThriftGame.h"
 
 TokyoThriftGame::TokyoThriftGame() {
-	currentState = new Title();
+	PlayerEntity p = PlayerEntity();
+	GameInfo g = GameInfo();
+	currentState = new Title(p, g);
 
 }
 

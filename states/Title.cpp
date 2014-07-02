@@ -7,16 +7,16 @@
 
 #include "Title.h"
 
-Title::Title() {
+Title::Title(PlayerEntity p, GameInfo g) {
 	nextState = STATE_NULL;
 
-	titleText = TTFText("Tokyo Thrift", 50, "Roboto-Medium.ttf");
+	description = "Welcome to Tokyo Thrift!\n";
 
-	std::vector<std::string> optionText = std::vector<std::string>();
-	optionText.push_back("Play");
-	optionText.push_back("Quit");
+	options[0] = "Begin Game!\n";
+	options[1] = "Exit\n";
 
-	titleOptions = SelectionList(optionText, 175, 150, 30, true);
+	playerData = p;
+	gameInfo = g;
 }
 
 Title::~Title() {
@@ -24,35 +24,28 @@ Title::~Title() {
 }
 
 void Title::handleEvents(){
-	while(SDL_PollEvent( &event ) ){
-		titleOptions.handleEvent(event);
-		if(event.type==SDL_KEYDOWN){
-			if(event.key.keysym.sym==SDLK_SPACE){
-				int selectIndex = titleOptions.getIndex();
-				if(selectIndex==0){
-					nextState = STATE_GAME;
-				}
-				else if(selectIndex == 1){
-					nextState = STATE_EXIT;
-				}
-			}
-		}
+	int selection;
+	cin>>selection;
+	switch(selection){
+	case 1:
+		cout<<"Please enter your name\n";
+		cin>>name;
+		cout<<"Hello " + name + "\n";
+		nextState=STATE_GAME;
+		break;
 
-		if( event.type == SDL_QUIT ){
-			nextState = STATE_EXIT;
-		}
+	case 2:
+		nextState=STATE_EXIT;
+		break;
+
+	default:
+		cout<<"Invalid selection!\n";
+		nextState=STATE_NULL;
+		break;
 	}
 }
 
-void Title::logic(){
 
-}
-
-void Title::render(SDL_Surface* destination){
-	GameState::clearScreen(destination);
-	titleText.displayText(125, 100, destination);
-	titleOptions.displayElements(destination);
-}
 
 GameState* Title::getNextState(){
 	if(nextState==STATE_NULL){
@@ -62,7 +55,7 @@ GameState* Title::getNextState(){
 		return NULL;
 	}
 	else if(nextState==STATE_GAME){
-		//return new LevelOne();
+		return new Home(playerData, gameInfo);
 	}
 	else{
 		return this;
