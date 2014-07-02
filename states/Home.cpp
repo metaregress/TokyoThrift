@@ -35,6 +35,7 @@ void Home::handleEvents(){
 
 	case 2:
 		gameInfo.setCurrentDate(gameInfo.getCurrentDate()+1);
+		cout<<"Advancing to " + GameState::numberToString(gameInfo.getCurrentDate()) + "\n";
 		cout<<"You rest for the night\n";
 		break;
 
@@ -47,7 +48,7 @@ void Home::handleEvents(){
 
 GameState* Home::getNextState(){
 	if(nextState==STATE_NULL){
-		return this;
+		return new Home(playerData, gameInfo);
 	}
 	else if(nextState==STATE_EXIT){
 		return NULL;
@@ -56,6 +57,6 @@ GameState* Home::getNextState(){
 		return new DemoStore(playerData, gameInfo);
 	}
 	else{
-		return this;
+		return new Home(playerData, gameInfo);
 	}
 }
