@@ -7,11 +7,11 @@
 
 #include "DemoStore.h"
 
-DemoStore::DemoStore(PlayerEntity p, GameInfo g) {
+DemoStore::DemoStore(PlayerEntity* p, GameInfo* g) {
 	nextState = STATE_NULL;
 
-	playerData = p;
-	gameInfo = g;
+	playerData = *p;
+	gameInfo = *g;
 
 	description = "You are in a run-down second hand store\nThe owner greets you wearily\n";
 
@@ -71,7 +71,7 @@ GameState* DemoStore::getNextState(){
 		return NULL;
 	}
 	else if(nextState==STATE_HOME){
-		return new Home(playerData, gameInfo);
+		return new Home(&playerData, &gameInfo);
 	}
 	else{
 		return this;

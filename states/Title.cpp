@@ -7,7 +7,7 @@
 
 #include "Title.h"
 
-Title::Title(PlayerEntity p, GameInfo g) {
+Title::Title(PlayerEntity *p, GameInfo *g) {
 	nextState = STATE_NULL;
 
 	description = "Welcome to Tokyo Thrift!\n";
@@ -15,8 +15,8 @@ Title::Title(PlayerEntity p, GameInfo g) {
 	options[0] = "Begin Game!\n";
 	options[1] = "Exit\n";
 
-	playerData = p;
-	gameInfo = g;
+	playerData = *p;
+	gameInfo = *g;
 }
 
 Title::~Title() {
@@ -55,7 +55,7 @@ GameState* Title::getNextState(){
 		return NULL;
 	}
 	else if(nextState==STATE_GAME){
-		return new Home(playerData, gameInfo);
+		return new Home(&playerData, &gameInfo);
 	}
 	else{
 		return this;

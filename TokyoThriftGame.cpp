@@ -10,7 +10,7 @@
 TokyoThriftGame::TokyoThriftGame() {
 	PlayerEntity p = PlayerEntity();
 	GameInfo g = GameInfo();
-	currentState = new Title(p, g);
+	currentState = new Title(&p, &g);
 
 }
 

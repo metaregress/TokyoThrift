@@ -7,11 +7,10 @@
 
 #include "Home.h"
 
-Home::Home(PlayerEntity p, GameInfo g) {
+Home::Home(PlayerEntity *p, GameInfo *g) {
 	nextState = STATE_NULL;
-
-	playerData = p;
-	gameInfo = g;
+	playerData = *p;
+	gameInfo = *g;
 
 	description = "You are in your apartment in the suburbs of Tokyo\nYou have " + GameState::numberToString(playerData.getMoney()) + " dollars in your bank account.\nIt is currently " + GameState::numberToString(gameInfo.getCurrentDate()) + "\n";
 
@@ -35,7 +34,6 @@ void Home::handleEvents(){
 
 	case 2:
 		gameInfo.setCurrentDate(gameInfo.getCurrentDate()+1);
-		cout<<"Advancing to " + GameState::numberToString(gameInfo.getCurrentDate()) + "\n";
 		cout<<"You rest for the night\n";
 		break;
 
@@ -48,15 +46,15 @@ void Home::handleEvents(){
 
 GameState* Home::getNextState(){
 	if(nextState==STATE_NULL){
-		return new Home(playerData, gameInfo);
+		return new Home(&playerData, &gameInfo);
 	}
 	else if(nextState==STATE_EXIT){
 		return NULL;
 	}
 	else if(nextState==STATE_STORE){
-		return new DemoStore(playerData, gameInfo);
+		return new DemoStore(&playerData, &gameInfo);
 	}
 	else{
-		return new Home(playerData, gameInfo);
+		return new Home(&playerData, &gameInfo);
 	}
 }

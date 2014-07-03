@@ -13,7 +13,7 @@
 
 class Home : public GenericNode{
 public:
-	Home(PlayerEntity p, GameInfo g);
+	Home(PlayerEntity *p, GameInfo *g);
 	virtual ~Home();
 
 	void handleEvents();

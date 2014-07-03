@@ -13,7 +13,7 @@
 
 class Title : public GenericNode {
 public:
-	Title(PlayerEntity p, GameInfo g);
+	Title(PlayerEntity *p, GameInfo *g);
 	virtual ~Title();
 
 	void handleEvents();

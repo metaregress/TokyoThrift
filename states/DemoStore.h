@@ -13,7 +13,7 @@
 
 class DemoStore : public GenericNode{
 public:
-	DemoStore(PlayerEntity p, GameInfo g);
+	DemoStore(PlayerEntity* p, GameInfo* g);
 	virtual ~DemoStore();
 
 	void handleEvents();
