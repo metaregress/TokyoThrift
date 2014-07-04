@@ -8,7 +8,7 @@
 #ifndef GENERICNODE_H_
 #define GENERICNODE_H_
 
-#include <map>
+#include <vector>
 
 #include "GameState.h"
 #include "../Entities/GameInfo.h"
@@ -21,7 +21,7 @@ public:
 	void render();
 
 protected:
-	std::map<int, std::string> options;
+	std::vector<std::string> options;
 	std::string description;
 	std::string name;
 

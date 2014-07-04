@@ -12,8 +12,8 @@ Title::Title(PlayerEntity *p, GameInfo *g) {
 
 	description = "Welcome to Tokyo Thrift!\n";
 
-	options[0] = "Begin Game!\n";
-	options[1] = "Exit\n";
+	options.push_back("Begin Game!\n");
+	options.push_back("Exit\n");
 
 	playerData = *p;
 	gameInfo = *g;

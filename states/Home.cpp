@@ -14,8 +14,8 @@ Home::Home(PlayerEntity *p, GameInfo *g) {
 
 	description = "You are in your apartment in the suburbs of Tokyo\nYou have " + GameState::numberToString(playerData.getMoney()) + " dollars in your bank account.\nIt is currently " + GameState::numberToString(gameInfo.getCurrentDate()) + "\n";
 
-	options[0] = "Go to the store\n";
-	options[1] = "Go to bed\n";
+	options.push_back("Go to the store\n");
+	options.push_back("Go to bed\n");
 
 }
 

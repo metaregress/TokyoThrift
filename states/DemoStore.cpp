@@ -22,9 +22,9 @@ DemoStore::DemoStore(PlayerEntity* p, GameInfo* g) {
 	description = "You are in a run-down second hand store\nThe owner greets you wearily\n";
 
 	for(unsigned int i=0; i<inventory.size(); i++){
-		options[i] = "Buy a " + inventory.at(i).getName() + "(" + GameState::numberToString(inventory.at(i).getPrice()) + " dollars)" + "\n";
+		options.push_back("Buy a " + inventory.at(i).getName() + "(" + GameState::numberToString(inventory.at(i).getPrice()) + " dollars)" + "\n");
 	}
-	options[inventory.size()] = "Go home\n";
+	options.push_back("Go home\n");
 
 }
 
@@ -41,10 +41,10 @@ void DemoStore::handleEvents(){
 		if(selectionPurchase==i){
 			bool purchase = buyItem(inventory.at(i));
 			//currently this mucks up the map for some reason and the indices keep showing up but being misleading; leaving this out until I can figure out a fix
-//			if(purchase){
-//				inventory.erase(inventory.begin() + i);
-//				options.erase(i);
-//			}
+			if(purchase){
+				inventory.erase(inventory.begin() + i);
+				options.erase(options.begin() + i);
+			}
 			nextState=STATE_NULL;
 		}
 	}

@@ -19,6 +19,6 @@ GenericNode::~GenericNode() {
 void GenericNode::render(){
 	cout<<description;
 	for(unsigned int i=0; i<options.size(); i++){
-		cout<<i+1 << " "  << options[i];
+		cout<<i+1 << " "  << options.at(i);
 	}
 }
