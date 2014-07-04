@@ -13,11 +13,18 @@ DemoStore::DemoStore(PlayerEntity* p, GameInfo* g) {
 	playerData = *p;
 	gameInfo = *g;
 
+	inventory = std::vector<GenericItem>();
+	GenericItem testItem = GenericItem(100, "lamp");
+	inventory.push_back(testItem);
+	GenericItem testItem2 = GenericItem(200, "chair");
+	inventory.push_back(testItem2);
+
 	description = "You are in a run-down second hand store\nThe owner greets you wearily\n";
 
-	options[0] = "Buy a lamp(100 dollars)\n";
-	options[1] = "Buy a chair(200 dollars)\n";
-	options[2] = "Go home\n";
+	for(unsigned int i=0; i<inventory.size(); i++){
+		options[i] = "Buy a " + inventory.at(i).getName() + "(" + GameState::numberToString(inventory.at(i).getPrice()) + " dollars)" + "\n";
+	}
+	options[inventory.size()] = "Go home\n";
 
 }
 
@@ -28,39 +35,23 @@ DemoStore::~DemoStore() {
 void DemoStore::handleEvents(){
 	int selection;
 	cin>>selection;
-	switch(selection){
-	case 1:
-		if(playerData.getMoney() >= 100){
-			playerData.setMoney(playerData.getMoney() - 100);
-			cout<<"You purchase the lamp\n";
+	int homeOption = inventory.size()+1; //to keep us from getting confused after we delete an item post-purchase
+	int selectionPurchase=selection-1; //to match up with the way options are displayed as 1-based instead of 0-based
+	for(unsigned int i=0; i<inventory.size(); i++){
+		if(selectionPurchase==i){
+			bool purchase = buyItem(inventory.at(i));
+			//currently this mucks up the map for some reason and the indices keep showing up but being misleading; leaving this out until I can figure out a fix
+//			if(purchase){
+//				inventory.erase(inventory.begin() + i);
+//				options.erase(i);
+//			}
 			nextState=STATE_NULL;
 		}
-		else{
-			cout<<"You do not have enough money to purchase the lamp\n";
-		}
-		break;
-
-	case 2:
-		if(playerData.getMoney() >= 200){
-			playerData.setMoney(playerData.getMoney() - 200);
-			cout<<"You purchase the chair\n";
-			nextState=STATE_NULL;
-		}
-		else{
-			cout<<"You do not have enough money to purchase the chair\n";
-		}
-		break;
-	case 3:
-			cout<<"You leave for home\n";
-			nextState=STATE_HOME;
-			break;
-
-
-	default:
-		cout<<"Invalid selection!\n";
-		nextState=STATE_NULL;
-		break;
 	}
+	if(selection==homeOption){
+		nextState=STATE_HOME;
+	}
+	//TODO: warn on invalid input. not sure how
 }
 
 GameState* DemoStore::getNextState(){
@@ -75,5 +66,18 @@ GameState* DemoStore::getNextState(){
 	}
 	else{
 		return this;
+	}
+}
+
+bool DemoStore::buyItem(GenericItem item){
+	if(playerData.getMoney() >= item.getPrice()){
+		playerData.setMoney(playerData.getMoney() - item.getPrice());
+		cout<<"You purchase the " + item.getName() + "\n";
+		playerData.addItem(item);
+		return true;
+	}
+	else{
+		cout<<"You do not have enough money to purchase the " + item.getName() + "\n";
+		return false;
 	}
 }

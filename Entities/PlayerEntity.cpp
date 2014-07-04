@@ -27,3 +27,7 @@ void PlayerEntity::setMoney(int value){
 std::vector<GenericItem> PlayerEntity::getInventory(){
 	return inventory;
 }
+
+void PlayerEntity::addItem(GenericItem item){
+	inventory.push_back(item);
+}

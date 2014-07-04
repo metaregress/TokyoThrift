@@ -10,6 +10,8 @@
 
 #include "GenericNode.h"
 #include "Home.h"
+#include "../Entities/GenericItem.h"
+#include <vector>
 
 class DemoStore : public GenericNode{
 public:
@@ -20,7 +22,11 @@ public:
 
 	GameState* getNextState();
 
+	std::vector<GenericItem> getInventory();
+
 protected:
+	std::vector<GenericItem> inventory;
+	bool buyItem(GenericItem item);
 	//Game states
 	enum GameStates {
 		STATE_NULL,

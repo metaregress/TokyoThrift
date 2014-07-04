@@ -7,6 +7,11 @@
 
 #include "GenericItem.h"
 
+GenericItem::GenericItem(int itemPrice, std::string itemName) {
+	price = itemPrice;
+	name = itemName;
+}
+
 GenericItem::GenericItem() {
 	// TODO Auto-generated constructor stub
 
@@ -14,4 +19,12 @@ GenericItem::GenericItem() {
 
 GenericItem::~GenericItem() {
 	// TODO Auto-generated destructor stub
+}
+
+int GenericItem::getPrice(){
+	return price;
+}
+
+std::string GenericItem::getName(){
+	return name;
 }

@@ -19,6 +19,7 @@ public:
 	int getMoney();
 	void setMoney(int value);
 	std::vector<GenericItem> getInventory();
+	void addItem(GenericItem item);
 
 private:
 	int money;

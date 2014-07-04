@@ -8,13 +8,20 @@
 #ifndef GENERICITEM_H_
 #define GENERICITEM_H_
 
+#include <string>
+
 class GenericItem {
 public:
+	GenericItem(int itemPrice, std::string itemName);
 	GenericItem();
 	virtual ~GenericItem();
 
+	int getPrice();
+	std::string getName();
+
 private:
-	int value;
+	int price;
+	std:: string name;
 
 	enum ItemTypes {
 		TOY,
