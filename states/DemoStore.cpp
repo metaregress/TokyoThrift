@@ -14,15 +14,16 @@ DemoStore::DemoStore(PlayerEntity* p, GameInfo* g) {
 	gameInfo = *g;
 
 	inventory = std::vector<GenericItem>();
-	GenericItem testItem = GenericItem(100, "lamp");
-	inventory.push_back(testItem);
-	GenericItem testItem2 = GenericItem(200, "chair");
-	inventory.push_back(testItem2);
+	int inventorySize = 2 + (rand() % 4);
 
 	description = "You are in a run-down second hand store\nThe owner greets you wearily\n";
 
+	for(unsigned int i=0; i<inventorySize; i++){
+		inventory.push_back(GenericItem());
+	}
+
 	for(unsigned int i=0; i<inventory.size(); i++){
-		options.push_back("Buy a " + inventory.at(i).getName() + "(" + GameState::numberToString(inventory.at(i).getPrice()) + " dollars)" + "\n");
+		options.push_back("Buy a " + inventory.at(i).getFullName() + "(" + GameState::numberToString(inventory.at(i).getPrice()) + " dollars)" + "\n");
 	}
 	options.push_back("Go home\n");
 
